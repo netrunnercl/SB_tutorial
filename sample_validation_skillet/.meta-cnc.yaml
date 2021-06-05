@@ -29,19 +29,6 @@ snippets:
         capture_object: /config/devices/entry[@name='localhost.localdomain']/deviceconfig/system/ntp-servers
       - name: password_complexity
         capture_object: /config/mgt-config/password-complexity
-      - name: virtual_routers
-        capture_object: /config/template/config/devices/entry[@name='localhost.localdomain']/network/virtual-router
-
-# Check virtual routers
-  - name: virtual_router_test
-    label: Check virtual router capabilities
-    test: |
-      (
-      virtual_routers | element_value('entry name') == 'VOLTAIRE VIRTUAL ROUTER'
-      )
-    fail_message: not called voltaire {{ virtual_routers }}.
-    pass_message: called voltaire {{ virtual_routers }}.
-    documentation_link: https://locomia.com
 
 # check that ntp servers are configured
   - name: ntp_servers_test
@@ -132,4 +119,25 @@ snippets:
       allow security policies without a profile or group: {{ allow_security_policies_without_profile }}
     pass_message: |
       all allow security policies have a profile or group configured
+    documentation_link: https://docs.paloaltonetworks.com/pan-os/9-1/pan-os-admin/policy/security-profiles/create-a-security-profile-group.html
+
+ # show virtual routers
+  - name: virtual_router_test
+    cmd: parse
+    variable: config
+    outputs:
+      # get list of all virtual routers
+      - name: virtual_routers
+        capture_list: |-
+          /config/devices/entry[@name='localhost.localdomain']/network/virtual-router/entry/@name
+
+  # check that there is more than one virtual router
+  - name: check_more_than_one_virtual_router
+    label: check that more than one virtual router
+    test: virtual_routers | length == 2
+    severity: medium
+    fail_message: |
+      no 2 virtual routers: {{ virtual_routers }}
+    pass_message: |
+      more than one virtual ruters {{ virtual_routers }}
     documentation_link: https://docs.paloaltonetworks.com/pan-os/9-1/pan-os-admin/policy/security-profiles/create-a-security-profile-group.html
