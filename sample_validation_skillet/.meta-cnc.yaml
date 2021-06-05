@@ -53,7 +53,7 @@ snippets:
       and password_complexity | element_value('minimum-length') >= '12'
       )
     fail_message: |
-      check that password complexity is enabled with a minimum password length of 12 characters
+      check that password complexity is enabled with a minimum password length of 12 characters {{ password_complexity }}
     pass_message: |
       password complexity is enabled with a minimum password length of 12 characters
     documentation_link: https://iron-skillet.readthedocs.io/en/docs_dev/viz_guide_panos.html#device-setup-management-minimum-password-complexity
