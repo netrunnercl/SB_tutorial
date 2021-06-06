@@ -38,12 +38,12 @@ snippets:
       cmd: parse
       variable: config
       outputs:
-        # get list of all virtual routers
+        # get list of all interfaces
         - name: interfaces
           capture_list: |-
-            /config/devices/entry[@name='localhost.localdomain']/network/interface/ethernet/entry/@name
+            /config/devices/entry[@name='localhost.localdomain']/network/virtual-router/entry/@name
 
-    # check that there is more than one virtual router
+    # check that there is more than one interfaces
     - name: check_more_than_one_ethernet
       label: check that more than one ethernet
       test: interfaces | length == 2
