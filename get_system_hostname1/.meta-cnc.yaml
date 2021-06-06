@@ -49,9 +49,9 @@ snippets:
       test: interfaces | length == 2
       severity: medium
       fail_message: |
-        no 2 virtual routers: {{ interfaces }}
+        interfaces: {{ interfaces }}
       pass_message: |
-        more than one virtual ruters {{ interfaces }}
+        more than interfaces {{ interfaces }}
       documentation_link: https://tml
 ####################################################################################################################
  # show virtual routers
