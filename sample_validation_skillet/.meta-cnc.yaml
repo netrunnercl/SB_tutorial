@@ -19,6 +19,12 @@ variables:
     type_hint: hidden
 
 snippets:
+  - name: check_hostname
+    cmd: cli
+    cmd_str: show system info
+    outputs:
+      - name: hostname
+        capture_pattern: ./hostname
 
 # get ntp server and password complexity objects
   - name: device_config_file
