@@ -14,11 +14,6 @@ variables:
 
 snippets:
 
-  # parse config file
-  - name: device_config_file
-    cmd: parse
-    variable: config
-
   # run show system info command
   - name: check_hostname
     cmd: cli
