@@ -34,7 +34,7 @@ snippets:
     documentation_link: https://tml
 ####################################################################################################################
   # show interfaces
-    - name: interfaces_test
+  - name: interfaces_test
       cmd: parse
       variable: config
       outputs:
@@ -44,7 +44,7 @@ snippets:
             /config/devices/entry[@name='localhost.localdomain']/network/interface/ethernet/entry/@name
 
     # check that there is more than one interfaces
-    - name: check_more_than_one_ethernet
+  - name: check_more_than_one_ethernet
       label: check that more than one ethernet
       test: interfaces | length == 2
       severity: medium
