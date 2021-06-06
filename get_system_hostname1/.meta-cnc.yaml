@@ -22,7 +22,7 @@ snippets:
       - name: hostname
         capture_pattern: ./hostname
 
-  # check that there is more than one virtual router
+  # check hostname
   - name: check_hostname
     label: check hostname
     test: hostname | length == 2
@@ -32,7 +32,28 @@ snippets:
     pass_message: |
       hostnameB {{ hostname }}
     documentation_link: https://tml
+####################################################################################################################
+  - # show interfaces
+    - name: interfaces_test
+      cmd: parse
+      variable: config
+      outputs:
+        # get list of all virtual routers
+        - name: interfaces
+          capture_list: |-
+            /config/devices/entry[@name='localhost.localdomain']/network/interface/ethernet/entry/@name
 
+    # check that there is more than one virtual router
+    - name: check_more_than_one_ethernet
+      label: check that more than one ethernet
+      test: interfaces | length == 2
+      severity: medium
+      fail_message: |
+        no 2 virtual routers: {{ interfaces }}
+      pass_message: |
+        more than one virtual ruters {{ interfaces }}
+      documentation_link: https://tml
+####################################################################################################################
  # show virtual routers
   - name: virtual_router_test
     cmd: parse
@@ -53,7 +74,7 @@ snippets:
     pass_message: |
       more than one virtual ruters {{ virtual_routers }}
     documentation_link: https://tml
-
+##################################################################################################################
  # show virtual routers template
   - name: virtual_router_template_test
     cmd: parse
