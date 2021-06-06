@@ -13,9 +13,20 @@ labels:
 variables:
 
 snippets:
-    name: check_hostname
+  - name: check_hostname
     cmd: cli
     cmd_str: show system info
     outputs:
       - name: hostname
         capture_pattern: ./hostname
+
+  # check that there is more than one virtual router
+  - name: check_hostname
+    label: check hostname
+    test: hostname | length == 2
+    severity: medium
+    fail_message: |
+      hostnameA: {{ hostname }}
+    pass_message: |
+      hostnameB {{ hostname }}
+    documentation_link: https://tml
