@@ -19,6 +19,7 @@ variables:
     type_hint: hidden
 
 snippets:
+
   - name: check_hostname
     cmd: cli
     cmd_str: show system info
