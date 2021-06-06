@@ -158,7 +158,7 @@ snippets:
     test: virtual_routers_template | length == 2
     severity: medium
     fail_message: |
-      no 2 virtual routers on template: {{ virtual_routers }}
+      no 2 virtual routers on template: {{ virtual_routers_template }}
     pass_message: |
-      more than one virtual ruters on template {{ virtual_routers }}
+      more than one virtual ruters on template {{ virtual_routers_template }}
     documentation_link: https://tml
