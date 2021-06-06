@@ -38,10 +38,10 @@ snippets:
     cmd: parse
     variable: config
     outputs:
-        # get list of all interfaces
-        - name: interfaces
-         capture_list: |-
-            /config/devices/entry[@name='localhost.localdomain']/network/interface/ethernet/entry/@name
+      # get list of all interfaces
+      - name: interfaces
+        capture_list: |-
+          /config/devices/entry[@name='localhost.localdomain']/network/interface/ethernet/entry/@name
 
     # check that there is more than one interfaces
   - name: check_more_than_one_ethernet
