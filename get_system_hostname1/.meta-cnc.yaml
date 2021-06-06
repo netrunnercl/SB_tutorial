@@ -1,8 +1,8 @@
 name: get_system_hostname1
-label: Login into system and get hostname
+label: Login into system and get hostname and virtual router
 
 description: |
-  This skillet demonstrates a very basic PAN-OS configuration operational
+  This skillet demonstrates a PAN-OS configuration operational
   command and how to extract info from the output
 type: pan_validation
 labels:
@@ -13,6 +13,13 @@ labels:
 variables:
 
 snippets:
+
+  # parse config file
+  - name: device_config_file
+    cmd: parse
+    variable: config
+
+  # run show system info command
   - name: check_hostname
     cmd: cli
     cmd_str: show system info
@@ -29,4 +36,46 @@ snippets:
       hostnameA: {{ hostname }}
     pass_message: |
       hostnameB {{ hostname }}
+    documentation_link: https://tml
+
+ # show virtual routers
+  - name: virtual_router_test
+    cmd: parse
+    variable: config
+    outputs:
+      # get list of all virtual routers
+      - name: virtual_routers
+        capture_list: |-
+          /config/devices/entry[@name='localhost.localdomain']/network/virtual-router/entry/@name
+
+  # check that there is more than one virtual router
+  - name: check_more_than_one_virtual_router
+    label: check that more than one virtual router
+    test: virtual_routers | length == 2
+    severity: medium
+    fail_message: |
+      no 2 virtual routers: {{ virtual_routers }}
+    pass_message: |
+      more than one virtual ruters {{ virtual_routers }}
+    documentation_link: https://tml
+
+ # show virtual routers template
+  - name: virtual_router_template_test
+    cmd: parse
+    variable: config
+    outputs:
+      # get list of all virtual routers
+      - name: virtual_routers_template
+        capture_list: |-
+          /config/template/config/devices/entry[@name='localhost.localdomain']/network/virtual-router/entry/@name
+
+  # check that there is more than one virtual router
+  - name: check_more_than_one_virtual_router_template
+    label: check that more than one virtual router on template
+    test: virtual_routers_template | length == 1
+    severity: medium
+    fail_message: |
+      no 2 virtual routers on template: {{ virtual_routers_template }}
+    pass_message: |
+      more than one virtual ruters on template {{ virtual_routers_template }}
     documentation_link: https://tml
