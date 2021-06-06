@@ -1,5 +1,5 @@
 name: get_system_hostname1
-label: Login into system and get hostname and virtual router
+label: Login into system and get hostname and virtual router and ethernet
 
 description: |
   This skillet demonstrates a PAN-OS configuration operational
