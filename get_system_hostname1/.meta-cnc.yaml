@@ -45,14 +45,14 @@ snippets:
 
     # check that there is more than one interfaces
   - name: check_more_than_one_ethernet
-  label: check that more than one ethernet
-  test: interfaces | length == 2
-  severity: medium
-  fail_message: |
+    label: check that more than one ethernet
+    test: interfaces | length == 2
+    severity: medium
+    fail_message: |
         interfaces: {{ interfaces }}
-  pass_message: |
+    pass_message: |
         more than interfaces {{ interfaces }}
-  documentation_link: https://tml
+    documentation_link: https://tml
 ####################################################################################################################
  # show virtual routers
   - name: virtual_router_test
